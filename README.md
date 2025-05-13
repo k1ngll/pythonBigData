@@ -1,54 +1,61 @@
-# 🌱 Previsão Climática para Agricultura na Bahia
+
+# 🎬 Análise de Filmes Sequenciais com Dados do TMDB
 
 ## 📌 Sobre o Projeto
-Este projeto tem como objetivo coletar, analisar e prever condições climáticas na Bahia para auxiliar no planejamento agrícola. Utilizamos a **API WeatherAPI** para obter dados históricos e em tempo real sobre temperatura, precipitação e velocidade do vento, permitindo estimar a viabilidade de cultivos em diferentes meses do ano.
+Este projeto analisa sequências de filmes com o objetivo de identificar padrões de sucesso em franquias cinematográficas. Utilizamos dados do **Kaggle (TMDB Movies Dataset 2023 - 930k filmes)** e da **API TMDB**, considerando métricas como **ROI**, **avaliação do público**, **popularidade** e **gêneros** para definir sucesso.
 
 ## 🛠 Tecnologias Utilizadas
-- **Python** para processamento de dados e análise estatística
-- **Pandas e NumPy** para manipulação e tratamento de dados
-- **Matplotlib e Seaborn** para visualização de dados
-- **Scikit-learn** para modelagem e previsões
-- **Streamlit** para criar um dashboard interativo
+- **Python** para análise de dados
+- **Pandas** e **NumPy** para tratamento de dados
+- **Matplotlib** e **Seaborn** para visualizações
+- **TMDB API** para dados adicionais de coleções/franquias
+- **Google Colab** como ambiente de desenvolvimento
 
 ## 📊 Etapas do Projeto
 
 ### 1️⃣ Coleta de Dados
-- Usamos a **WeatherAPI** para obter dados históricos e atuais do clima em diversas cidades da Bahia.
-- Os dados incluem **temperatura média mensal, dias chuvosos e velocidade do vento**.
+- Dataset principal: [TMDB Movies Dataset 2023 (Kaggle)](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
+- Complementação com dados da **TMDB API**, especialmente para identificar franquias (`belongs_to_collection`).
 
-### 2️⃣ Análise Exploratória
-- Limpeza e organização dos dados (remoção de valores nulos e outliers).
-- Cálculo de **médias mensais e sazonais**.
-- Identificação de padrões climáticos regionais.
+### 2️⃣ Seleção e Limpeza
+Colunas mantidas:
+- `id`, `title`, `release_date`, `budget`, `revenue`, `vote_average`, `vote_count`, `popularity`, `genres`, `production_companies`, `original_language`
 
-### 3️⃣ Modelagem de Dados
-- Testamos modelos de **Machine Learning**, incluindo:
-  - **Regressão Linear** para prever temperatura
-  - **Modelo ARIMA** para prever chuvas e vento
-  - **Redes Neurais** para uma abordagem mais robusta
-- Comparação dos modelos para escolher o mais eficiente.
+Colunas descartadas:
+- `imdb_id`, `original_title`, `status`, `adult`, `runtime`, `spoken_languages`, `tagline`, `overview`, `poster_path`, `backdrop_path`, `homepage`, `production_countries`, `keywords`
 
-### 4️⃣ Visualização dos Dados
-- Criamos **gráficos interativos** para facilitar a análise.
-- Utilizamos **Streamlit** para desenvolver um **dashboard dinâmico** que exibe previsões futuras.
+### 3️⃣ Definição de Sucesso
+Critérios adotados para um filme de franquia ser considerado bem-sucedido:
+- **ROI > 0,5**
+- **Avaliação ≥ 7,0**
+- **Popularidade estável ou crescente**
 
-### 5️⃣ Conclusão e Recomendações
-- Identificação dos **melhores meses para o plantio de culturas específicas**.
-- Sugestão de estratégias para lidar com seca ou excesso de chuvas.
+### 4️⃣ Análise
+- Avaliação da performance de filmes dentro de suas franquias.
+- Comparação de ROI, nota e popularidade entre o primeiro, segundo e terceiro filmes.
+- Impacto de gêneros e produtoras no sucesso das sequências.
+- Análise específica de filmes brasileiros (`original_language == 'pt'`).
+
+### 5️⃣ Resultados e Insights
+- Identificação de franquias com bom desempenho financeiro e crítico.
+- Gêneros que tendem a ter melhores resultados em sequências (ex: ação, aventura).
+- Indícios de saturação em certas franquias a partir da terceira sequência.
 
 ## 📂 Estrutura do Repositório
 ```
-├── data/               # Dados brutos e tratados
-├── notebooks/          # Jupyter Notebooks para análise
-├── src/               # Código-fonte do projeto
-│   ├── coleta.py      # Script para coletar dados da API
-│   ├── analise.py     # Análise exploratória dos dados
-│   ├── modelagem.py   # Modelos de previsão climática
-│   ├── visualizacao.py # Gráficos e dashboards
-├── README.md          # Documento atual
+├── data/                    # Arquivos CSV e dados processados
+├── notebooks/               # Notebooks Google Colab
+│   ├── 01_coleta_e_limpeza.ipynb
+│   ├── 02_analise_exploratoria.ipynb
+│   └── 03_modelagem_sucesso.ipynb
+├── src/                     # Scripts Python
+│   ├── coleta_tmdb.py
+│   ├── limpeza.py
+│   ├── analise.py
+├── README.md                # Este documento
 ```
 
-## 🚀 Como Executar o Projeto
+## 🚀 Como Executar
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seu-usuario/seu-repositorio.git
@@ -57,31 +64,18 @@ Este projeto tem como objetivo coletar, analisar e prever condições climática
    ```bash
    pip install -r requirements.txt
    ```
-3. Execute a coleta de dados:
-   ```bash
-   python src/coleta.py
-   ```
-4. Rode a análise exploratória e modelagem:
-   ```bash
-   python src/analise.py
-   python src/modelagem.py
-   ```
-5. Execute o dashboard para visualizar os resultados:
-   ```bash
-   streamlit run src/visualizacao.py
-   ```
+3. Execute os notebooks no Google Colab.
 
-## 📌 Integrantes
-- Christian Oliveria
-- Maria Eduarda
-- Rafaela
-- Uiles
-- Sena
+## 👥 Integrantes
+- Christian Oliveira  
+- Maria Eduarda  
+- Rafaela  
+- Uiles  
+- Sena  
 
 ## 📎 Referências
-- [WeatherAPI](https://www.weatherapi.com/) - Fonte dos dados climáticos
-- [Scikit-learn](https://scikit-learn.org/) - Machine Learning
-- [Streamlit](https://streamlit.io/) - Dashboard interativo
-
-
-
+- [TMDB API](https://developer.themoviedb.org/docs)
+- [Dataset no Kaggle](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
+- [Pandas](https://pandas.pydata.org/)
+- [Matplotlib](https://matplotlib.org/)
+- [Seaborn](https://seaborn.pydata.org/)
